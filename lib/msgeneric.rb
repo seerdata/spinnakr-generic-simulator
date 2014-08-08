@@ -7,8 +7,8 @@ class Msgeneric
     for i in 0..10
       my_visit_uuid.push(SecureRandom.uuid)
     end
-    puts my_visit_uuid.sort
-    puts
+    #puts my_visit_uuid.sort
+    #puts
     my_visit_uuid
   end
 
@@ -17,8 +17,8 @@ class Msgeneric
     for i in 0..10
       my_visitor_uuid.push(SecureRandom.uuid)
     end
-    puts my_visitor_uuid.sort
-    puts
+    #puts my_visitor_uuid.sort
+    #puts
     my_visitor_uuid
   end
 
@@ -54,8 +54,10 @@ class Msgeneric
 
   def initialize
     @msg_hash = Hash.new
-    @visit_uuid = get_my_random_visit_uuid
-    @visitor_uuid = get_my_random_visitor_uuid
+    #@visit_uuid = get_my_random_visit_uuid
+    @visit_uuid = get_my_visit_uuid
+    #@visitor_uuid = get_my_random_visitor_uuid
+    @visitor_uuid = get_my_visitor_uuid
   end
 
   def get_user_id
@@ -63,11 +65,11 @@ class Msgeneric
   end
 
   def get_account_id
-    (100..105).to_a.sample
+    (200..205).to_a.sample
   end
 
   def get_trackable_id
-    (100..105).to_a.sample
+    (300..305).to_a.sample
   end
 
   def buildmsg
@@ -76,15 +78,15 @@ class Msgeneric
     @msg_hash[:trackable_id] = get_trackable_id
     @msg_hash[:trackable_type] = "Site"
     @msg_hash[:visit_uuid] = @visit_uuid.sample
-    #@msg_hash[:visit_uuid] = SecureRandom.uuid
     @msg_hash[:visitor_uuid] = @visitor_uuid.sample
-    #@msg_hash[:visitor_uuid] = SecureRandom.uuid
     @msg_hash[:created_at] = Time.now
     @msg_hash
   end
 end
 
+=begin
 msg = Msgeneric.new
 puts msg.buildmsg[:visit_uuid]
 puts msg.buildmsg[:visitor_uuid]
-#puts msg.buildmsg
+puts msg.buildmsg
+=end
