@@ -2,9 +2,8 @@ require 'securerandom'
 
 class Msgeneric
 
-  def initialize
-    @msg_hash = Hash.new
-    @visit_uuid = [
+  def get_my_visit_uuid
+    my_visit_uuid = [
       '404a5866-b844-4186-9322-59cacdcec297',
       '45f32255-aaeb-4d2f-8988-26494bc4d58d',
       '5c953ea8-a620-45bf-8959-6feee5d57c33',
@@ -16,7 +15,10 @@ class Msgeneric
       'df063345-f168-4948-bc90-ee816b13b254',
       'ee88784e-b900-4947-a387-959b582f3dd1',
     ]
-    @visitor_uuid = [
+  end
+
+  def get_my_visitor_uuid
+    my_visitor_uuid = [
       '1b306a68-6dbc-412f-b2ba-961991b452d1',
       '27547636-c352-4980-b5ec-c13f0a309957',
       '33731ba9-7ebe-484d-ba9e-b2287fd26c96',
@@ -28,6 +30,12 @@ class Msgeneric
       'b9930161-a397-4276-8429-54758a9c2a50',
       'c6ea6642-f735-4b71-8236-b16d3ff7ab00',
     ]
+  end
+
+  def initialize
+    @msg_hash = Hash.new
+    @visit_uuid = get_my_visit_uuid
+    @visitor_uuid = get_my_visitor_uuid
   end
 
   def get_user_id
