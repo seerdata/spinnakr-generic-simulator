@@ -8,10 +8,12 @@ connection.start
 channel = connection.create_channel
 exchange = channel.fanout("test.spnee.generic", :passive => true)
 
-mg = Msgeneric.new
-msg_hash = mg.buildmsg
-
-exchange.publish(msg_hash.to_json)
+msg = Msgeneric.new
+n = 5
+msgs = msg.build_n_messages(n)
+for i in 0..n
+  exchange.publish(msgs[i].to_json)
+end
 
 sleep 3.5
 puts "Disconnecting..."

@@ -53,7 +53,6 @@ class Msgeneric
   end
 
   def initialize
-    @msg_hash = Hash.new
     #@visit_uuid = get_my_random_visit_uuid
     @visit_uuid = get_my_visit_uuid
     #@visitor_uuid = get_my_random_visitor_uuid
@@ -73,20 +72,31 @@ class Msgeneric
   end
 
   def buildmsg
-    @msg_hash[:user_id] = get_user_id
-    @msg_hash[:account_id] = get_account_id
-    @msg_hash[:trackable_id] = get_trackable_id
-    @msg_hash[:trackable_type] = "Site"
-    @msg_hash[:visit_uuid] = @visit_uuid.sample
-    @msg_hash[:visitor_uuid] = @visitor_uuid.sample
-    @msg_hash[:created_at] = Time.now
-    @msg_hash
+    msg_hash = Hash.new
+    msg_hash[:user_id] = get_user_id
+    msg_hash[:account_id] = get_account_id
+    msg_hash[:trackable_id] = get_trackable_id
+    msg_hash[:trackable_type] = "Site"
+    msg_hash[:visit_uuid] = @visit_uuid.sample
+    msg_hash[:visitor_uuid] = @visitor_uuid.sample
+    msg_hash[:created_at] = Time.now
+    msg_hash
+  end
+
+  def build_n_messages(n)
+    messages = []
+    for i in 0..n
+      messages.push(buildmsg)
+    end
+    messages
   end
 end
 
 =begin
 msg = Msgeneric.new
-puts msg.buildmsg[:visit_uuid]
-puts msg.buildmsg[:visitor_uuid]
-puts msg.buildmsg
+n = 20
+msgs = msg.build_n_messages(n)
+for i in 0..n
+  puts msgs[i]
+end
 =end
