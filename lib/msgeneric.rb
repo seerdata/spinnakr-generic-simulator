@@ -2,6 +2,26 @@ require 'securerandom'
 
 class Msgeneric
 
+  def get_my_random_visit_uuid
+    my_visit_uuid = []
+    for i in 0..10
+      my_visit_uuid.push(SecureRandom.uuid)
+    end
+    puts my_visit_uuid.sort
+    puts
+    my_visit_uuid
+  end
+
+  def get_my_random_visitor_uuid
+    my_visitor_uuid = []
+    for i in 0..10
+      my_visitor_uuid.push(SecureRandom.uuid)
+    end
+    puts my_visitor_uuid.sort
+    puts
+    my_visitor_uuid
+  end
+
   def get_my_visit_uuid
     my_visit_uuid = [
       '404a5866-b844-4186-9322-59cacdcec297',
@@ -34,8 +54,8 @@ class Msgeneric
 
   def initialize
     @msg_hash = Hash.new
-    @visit_uuid = get_my_visit_uuid
-    @visitor_uuid = get_my_visitor_uuid
+    @visit_uuid = get_my_random_visit_uuid
+    @visitor_uuid = get_my_random_visitor_uuid
   end
 
   def get_user_id
