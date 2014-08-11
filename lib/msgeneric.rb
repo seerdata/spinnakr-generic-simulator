@@ -2,6 +2,32 @@ require 'securerandom'
 
 class Msgeneric
 
+  def get_dimension
+    dimension = [
+      'skills','visit','visitor'
+    ].sample
+  end
+
+  def get_key(dimension)
+    if dimension == 'skills'
+        'iOS'
+    elsif dimension == 'visit'
+      'uuid'
+    elsif dimension == 'visitor'
+      'uuid'
+    else
+        'none'
+    end
+  end
+
+  def get_my_periodicity
+    my_periodicity = [
+      ['weekly','monthly'],
+      ['weekly'],
+      ['monthly']
+    ]
+  end
+
   def get_my_random_visit_uuid
     my_visit_uuid = []
     for i in 0..10
@@ -64,22 +90,30 @@ class Msgeneric
   end
 
   def get_account_id
-    (200..205).to_a.sample
+    (1..5).to_a.sample
   end
 
   def get_trackable_id
     (300..305).to_a.sample
   end
 
+  def get_project_id
+    (6..10).to_a.sample
+  end
+
+  def get_value
+    (10..20).to_a.sample
+  end
+
   def buildmsg
     msg_hash = Hash.new
-    msg_hash[:user_id] = get_user_id
     msg_hash[:account_id] = get_account_id
-    msg_hash[:trackable_id] = get_trackable_id
-    msg_hash[:trackable_type] = "Site"
-    msg_hash[:visit_uuid] = @visit_uuid.sample
-    msg_hash[:visitor_uuid] = @visitor_uuid.sample
+    msg_hash[:project_id] = get_project_id
+    msg_hash[:dimension] = get_dimension
+    msg_hash[:key] = get_key(msg_hash[:dimension])
+    msg_hash[:value] = get_value
     msg_hash[:created_at] = Time.now
+    #msg_hash[:visitor_uuid] = @visitor_uuid.sample
     msg_hash
   end
 
@@ -91,6 +125,9 @@ class Msgeneric
     messages
   end
 end
+
+msg = Msgeneric.new
+puts msg.buildmsg
 
 =begin
 msg = Msgeneric.new
