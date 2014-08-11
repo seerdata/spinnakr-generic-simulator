@@ -30,12 +30,18 @@ class Msgeneric
     end
   end
 
-  def get_my_periodicity
+  def get_periodicity
     my_periodicity = [
       ['weekly','monthly'],
       ['weekly'],
       ['monthly']
-    ]
+    ].sample
+  end
+
+  def get_calculation
+    my_periodicity = [
+      ['regression']
+    ].sample
   end
 
   def get_my_random_visit_uuid
@@ -119,6 +125,8 @@ class Msgeneric
     msg_hash[:key] = get_key(msg_hash[:dimension])
     msg_hash[:value] = get_value(msg_hash[:dimension])
     msg_hash[:created_at] = Time.now
+    msg_hash[:periodicty] = get_periodicity
+    msg_hash[:calculation] = get_calculation
     msg_hash
   end
 
