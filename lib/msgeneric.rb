@@ -10,13 +10,23 @@ class Msgeneric
 
   def get_key(dimension)
     if dimension == 'skills'
-        'iOS'
+      'iOS'
     elsif dimension == 'visit'
       'uuid'
     elsif dimension == 'visitor'
       'uuid'
     else
-        'none'
+      'none'
+    end
+  end
+
+  def get_value(dimension)
+    if dimension == 'visit'
+      get_my_visit_uuid
+    elsif dimension == 'visitor'
+      get_my_visitor_uuid
+    else
+      (10..20).to_a.sample
     end
   end
 
@@ -60,7 +70,7 @@ class Msgeneric
       'dd47e62d-b9bb-492d-b9d6-b033fb6d2b94',
       'df063345-f168-4948-bc90-ee816b13b254',
       'ee88784e-b900-4947-a387-959b582f3dd1',
-    ]
+    ].sample
   end
 
   def get_my_visitor_uuid
@@ -75,7 +85,7 @@ class Msgeneric
       'b9474e92-660d-4348-a6e2-b135f381eb27',
       'b9930161-a397-4276-8429-54758a9c2a50',
       'c6ea6642-f735-4b71-8236-b16d3ff7ab00',
-    ]
+    ].sample
   end
 
   def initialize
@@ -101,19 +111,14 @@ class Msgeneric
     (6..10).to_a.sample
   end
 
-  def get_value
-    (10..20).to_a.sample
-  end
-
   def buildmsg
     msg_hash = Hash.new
     msg_hash[:account_id] = get_account_id
     msg_hash[:project_id] = get_project_id
     msg_hash[:dimension] = get_dimension
     msg_hash[:key] = get_key(msg_hash[:dimension])
-    msg_hash[:value] = get_value
+    msg_hash[:value] = get_value(msg_hash[:dimension])
     msg_hash[:created_at] = Time.now
-    #msg_hash[:visitor_uuid] = @visitor_uuid.sample
     msg_hash
   end
 
