@@ -1,6 +1,6 @@
 require 'securerandom'
 
-class Msgeneric
+class Msgvisit
 
   def get_my_random_visit_uuid
     my_visit_uuid = []
@@ -93,7 +93,7 @@ class Msgeneric
 end
 
 =begin
-msg = Msgeneric.new
+msg = Msgvisit.new
 n = 20
 msgs = msg.build_n_messages(n)
 for i in 0..n
