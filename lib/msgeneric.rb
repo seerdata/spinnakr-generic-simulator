@@ -139,8 +139,10 @@ class Msgeneric
   end
 end
 
+=begin
 msg = Msgeneric.new
 puts msg.buildmsg
+=end
 
 =begin
 msg = Msgeneric.new
