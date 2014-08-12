@@ -20,3 +20,9 @@ To publish out more than 2 messages
 ```
 ruby sim.rb -n 10
 ```
+
+Some examples
+
+```
+ruby sim.rb -n 20 -e 'test.spnee.generictwo'
+```
