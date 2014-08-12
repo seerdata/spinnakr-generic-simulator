@@ -13,12 +13,17 @@ class Sim
     options = OpenStruct.new
     options.verbose = false
     options.n = 2
+    options.e = "test.spnee.generic"
 
     opt_parser = OptionParser.new do |opts|
       opts.banner = "Usage: sim.rb [options]"
 
-      opts.on("--n N", Integer, "Publish n messages") do |x|
+      opts.on("-n N", Integer, "Publish n messages") do |x|
         options.n = x
+      end
+
+      opts.on("-e exchange", "Exchange Name") do |c|
+        options.e = c
       end
 
       # No argument, shows at tail.  This will print an options summary.
@@ -39,7 +44,8 @@ class Sim
     connection.start
 
     channel = connection.create_channel
-    exchange = channel.fanout("test.spnee.generic", :passive => true)
+    exchange_name = options.e
+    exchange = channel.fanout(exchange_name, :passive => true)
 
     msg = Msgeneric.new
     n = options.n
@@ -49,7 +55,7 @@ class Sim
     end
 
     sleep 3.5
-    print n, " messages were published..."; puts
+    print n, " messages were published to ", exchange_name; puts
     connection.close
   end
 
