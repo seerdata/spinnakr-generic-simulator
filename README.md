@@ -1,3 +1,8 @@
+To install the simulator
+
+```
+gem install bunny
+```
 
 To see the options that you can pass into the simulator:
 
