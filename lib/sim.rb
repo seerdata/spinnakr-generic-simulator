@@ -79,5 +79,7 @@ end
 
 mysim = Sim.new
 options = mysim.parse(ARGV)
-puts options
+if options.verbose == true
+  puts options
+end
 mysim.run(options)
