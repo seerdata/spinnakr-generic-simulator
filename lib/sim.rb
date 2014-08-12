@@ -1,10 +1,10 @@
-require_relative './msgeneric'
 require 'bunny'
-require 'json'
 
 require 'optparse'
 require 'ostruct'
 require 'pp'
+
+require_relative './publisher'
 
 class Sim
 
@@ -47,15 +47,10 @@ class Sim
     exchange_name = options.e
     exchange = channel.fanout(exchange_name, :passive => true)
 
-    msg = Msgeneric.new
-    n = options.n
-    msgs = msg.build_n_messages(n)
-    for i in 1..n
-      exchange.publish(msgs[i].to_json)
-    end
+    pub = Publisher.new
+    pub.publish(options,exchange)
 
     sleep 3.5
-    print n, " messages were published to ", exchange_name; puts
     connection.close
   end
 
