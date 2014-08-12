@@ -15,6 +15,7 @@ class Sim
     options.verbose = false
     options.n = 2
     options.i = 1
+    options.s = 10
     options.e = "test.spnee.generic"
 
     opt_parser = OptionParser.new do |opts|
@@ -36,6 +37,10 @@ class Sim
 
       opts.on("-n Messages", Integer, "Publish n messages") do |x|
         options.n = x
+      end
+
+      opts.on("-s Seconds", Integer, "Sleep s seconds") do |x|
+        options.s = x
       end
 
       opts.on("-e Exchange", "Exchange Name") do |c|
