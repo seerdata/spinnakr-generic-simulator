@@ -26,14 +26,19 @@ class Publisher
   end
 
   def publish_iterations(options,exchange)
-    msg = Msgeneric.new
-    n = options.n
-    msgs = msg.build_n_messages(n)
-    for i in 1..n
-      exchange.publish(msgs[i].to_json)
-    end
-    if options.verbose == true
-      print n, " messages were published to ", options.e; puts
+    seconds = options.s
+    iterations = options.i
+    for i in 1..iterations
+      msg = Msgeneric.new
+      n = options.n
+      msgs = msg.build_n_messages(n)
+      for i in 1..n
+        exchange.publish(msgs[i].to_json)
+      end
+      if options.verbose == true
+        print n, " messages were published to ", options.e; puts
+      end
+      sleep seconds
     end
   end
 
