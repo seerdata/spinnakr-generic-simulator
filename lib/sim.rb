@@ -11,18 +11,34 @@ class Sim
   def parse(args)
 
     options = OpenStruct.new
+    options.forever = false
     options.verbose = false
     options.n = 2
+    options.i = 1
     options.e = "test.spnee.generic"
 
     opt_parser = OptionParser.new do |opts|
       opts.banner = "Usage: sim.rb [options]"
 
-      opts.on("-n N", Integer, "Publish n messages") do |x|
+      # Boolean switch.
+      opts.on("-v", "Run verbosely") do |v|
+        options.verbose = v
+      end
+
+      # Boolean switch.
+      opts.on("-f", "Run forever") do |v|
+        options.forever = v
+      end
+
+      opts.on("-i Iterations", Integer, "Publish i iterations") do |x|
+        options.i = x
+      end
+
+      opts.on("-n Messages", Integer, "Publish n messages") do |x|
         options.n = x
       end
 
-      opts.on("-e exchange", "Exchange Name") do |c|
+      opts.on("-e Exchange", "Exchange Name") do |c|
         options.e = c
       end
 
@@ -58,4 +74,5 @@ end
 
 mysim = Sim.new
 options = mysim.parse(ARGV)
+puts options
 mysim.run(options)

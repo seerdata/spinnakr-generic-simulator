@@ -4,13 +4,48 @@ require 'json'
 class Publisher
 
   def publish(options,exchange)
+    if options.forever == true
+      publish_forever(options,exchange)
+    elsif options.i > 1
+      publish_iterations(options,exchange)
+    else
+      publish_once(options,exchange)
+    end
+  end
+
+  def publish_once(options,exchange)
     msg = Msgeneric.new
     n = options.n
     msgs = msg.build_n_messages(n)
     for i in 1..n
       exchange.publish(msgs[i].to_json)
     end
-    print n, " messages were published to ", options.e; puts
+    if options.verbose == true
+      print n, " messages were published to ", options.e; puts
+    end
   end
 
+  def publish_iterations(options,exchange)
+    msg = Msgeneric.new
+    n = options.n
+    msgs = msg.build_n_messages(n)
+    for i in 1..n
+      exchange.publish(msgs[i].to_json)
+    end
+    if options.verbose == true
+      print n, " messages were published to ", options.e; puts
+    end
+  end
+
+  def publish_forever(options,exchange)
+    msg = Msgeneric.new
+    n = options.n
+    msgs = msg.build_n_messages(n)
+    for i in 1..n
+      exchange.publish(msgs[i].to_json)
+    end
+    if options.verbose == true
+      print n, " messages were published to ", options.e; puts
+    end
+  end
 end
