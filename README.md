@@ -1,3 +1,6 @@
+The simulator assumes that you have RabbitMQ installed on the local
+instance where you will be running the simulator.
+
 To install the simulator
 
 ```
