@@ -8,7 +8,7 @@ git clone git@github.com:stormasm/spinnakr-generic-simulator.git
 gem install bunny
 ```
 
-To run the simulator you **must be in the lib directory**
+**To run the simulator you must be in the lib directory**
 
 To see the options that you can pass into the simulator:
 
