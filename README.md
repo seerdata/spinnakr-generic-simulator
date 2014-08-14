@@ -16,11 +16,15 @@ To see the options that you can pass into the simulator:
 ruby sim.rb -h
 ```
 
+#### Verbosity
+
 All output from the simulator is available in verbose mode
 
 ```
 ruby sim.rb -v
 ```
+
+#### Exchange Name
 
 The default exchange name where events get published is **test.spnee.generic**
 
@@ -30,6 +34,8 @@ To define an alternate exchange name to publish to
 ruby sim.rb -e 'test.spnee.generictwo'
 ```
 
+#### Messages
+
 The default number of messages that get published out is 2
 
 To publish out more than 2 messages and instead publish 10 messages
@@ -37,6 +43,9 @@ To publish out more than 2 messages and instead publish 10 messages
 ```
 ruby sim.rb -n 10
 ```
+
+
+#### Iterations
 
 You have the option of publishing n messages once and only once.
 
@@ -47,6 +56,8 @@ If you decide to publish 6 messages inside 4 iterations then you would run this 
 ```
 ruby sim.rb -v -n 6 -i 4
 ```
+
+#### Sleep
 
 By default the publisher sleeps for 10 seconds after each iteration, if you want to only
 sleep for 3 seconds instead of 10 seconds you would issue this command
@@ -75,6 +86,8 @@ If you want to simulate 20 days forward and 20 days back then pass in the **d** 
 ```
 r sim.rb -d 20
 ```
+
+#### Extra examples
 
 This will publish 20 messages once and only once to an alternate exchange.
 
