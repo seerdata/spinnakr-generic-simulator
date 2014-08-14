@@ -13,22 +13,32 @@ class Sim
     options = OpenStruct.new
     options.forever = false
     options.verbose = false
-    options.n = 2
-    options.i = 1
-    options.s = 10
+
+    options.d = 10
     options.e = "test.spnee.generic"
+    options.i = 1
+    options.n = 2
+    options.s = 10
 
     opt_parser = OptionParser.new do |opts|
       opts.banner = "Usage: sim.rb [options]"
+
+      # Boolean switch.
+      opts.on("-f", "Run forever") do |v|
+        options.forever = v
+      end
 
       # Boolean switch.
       opts.on("-v", "Run verbosely") do |v|
         options.verbose = v
       end
 
-      # Boolean switch.
-      opts.on("-f", "Run forever") do |v|
-        options.forever = v
+      opts.on("-d Days", Integer, "Time simulation interval") do |x|
+        options.d = x
+      end
+
+      opts.on("-e Exchange", "Exchange name") do |c|
+        options.e = c
       end
 
       opts.on("-i Iterations", Integer, "Publish i iterations") do |x|
@@ -43,9 +53,6 @@ class Sim
         options.s = x
       end
 
-      opts.on("-e Exchange", "Exchange Name") do |c|
-        options.e = c
-      end
 
       # No argument, shows at tail.  This will print an options summary.
       # Try it and see!
