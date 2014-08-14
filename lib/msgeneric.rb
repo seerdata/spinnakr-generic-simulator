@@ -1,6 +1,15 @@
 require 'securerandom'
+require_relative './timesim'
 
 class Msgeneric
+
+  def initialize
+    #@visit_uuid = get_my_random_visit_uuid
+    #@visit_uuid = get_my_visit_uuid
+    #@visitor_uuid = get_my_random_visitor_uuid
+    #@visitor_uuid = get_my_visitor_uuid
+    @timesim = TimeSim.new
+  end
 
   def get_dimension
     dimension = [
@@ -94,13 +103,6 @@ class Msgeneric
     ].sample
   end
 
-  def initialize
-    #@visit_uuid = get_my_random_visit_uuid
-    @visit_uuid = get_my_visit_uuid
-    #@visitor_uuid = get_my_random_visitor_uuid
-    @visitor_uuid = get_my_visitor_uuid
-  end
-
   def get_user_id
     (100..105).to_a.sample
   end
@@ -117,31 +119,41 @@ class Msgeneric
     (6..10).to_a.sample
   end
 
-  def buildmsg
+  def buildmsg(options)
     msg_hash = Hash.new
     msg_hash[:account_id] = get_account_id
     msg_hash[:project_id] = get_project_id
     msg_hash[:dimension] = get_dimension
     msg_hash[:key] = get_key(msg_hash[:dimension])
     msg_hash[:value] = get_value(msg_hash[:dimension])
-    msg_hash[:created_at] = Time.now
+
+    # Publish out a random time on either side of day interval
+    msg_hash[:created_at] = @timesim.get_random_time(options.d)
+
+    # Publish out the time now
+    # msg_hash[:created_at] = Time.now
+
     msg_hash[:periodicty] = get_periodicity
     msg_hash[:calculation] = get_calculation
     msg_hash
   end
 
-  def build_n_messages(n)
+  def build_n_messages(options,n)
     messages = []
     for i in 0..n
-      messages.push(buildmsg)
+      mymsg = buildmsg(options)
+      messages.push(mymsg)
     end
     messages
   end
 end
 
 =begin
+require 'ostruct'
+options = OpenStruct.new
+options.d = 10
 msg = Msgeneric.new
-puts msg.buildmsg
+puts msg.buildmsg(options)
 =end
 
 =begin

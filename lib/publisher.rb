@@ -16,7 +16,7 @@ class Publisher
   def publish_once(options,exchange)
     msg = Msgeneric.new
     n = options.n
-    msgs = msg.build_n_messages(n)
+    msgs = msg.build_n_messages(options,n)
     for i in 1..n
       exchange.publish(msgs[i].to_json)
     end
@@ -31,7 +31,7 @@ class Publisher
     for i in 1..iterations
       msg = Msgeneric.new
       n = options.n
-      msgs = msg.build_n_messages(n)
+      msgs = msg.build_n_messages(options,n)
       for i in 1..n
         exchange.publish(msgs[i].to_json)
       end
@@ -49,7 +49,7 @@ class Publisher
       for i in 1..iterations
         msg = Msgeneric.new
         n = options.n
-        msgs = msg.build_n_messages(n)
+        msgs = msg.build_n_messages(options,n)
         for i in 1..n
           exchange.publish(msgs[i].to_json)
         end
