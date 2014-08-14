@@ -62,6 +62,8 @@ eternity then simply pass in the forever flag.
 r sim.rb -v -n 6 -i 4 -s 3 -f
 ```
 
+#### Time
+
 Each event has a timestamp associated with it.  To simulate a period of time over n days you pass
 in a flag which tells the simulator what day range you want to simulate.
 
