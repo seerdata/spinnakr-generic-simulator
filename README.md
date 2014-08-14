@@ -5,7 +5,7 @@ To install the simulator
 
 ```
 git clone git@github.com:stormasm/spinnakr-generic-simulator.git
-gem install bunny
+bundle install
 ```
 
 **To run the simulator you must be in the lib directory**
