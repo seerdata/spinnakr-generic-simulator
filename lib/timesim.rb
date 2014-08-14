@@ -5,16 +5,6 @@ require 'yaml'
 
 class TimeSim
 
-  def initialize
-    @config = YAML.load_file("./config.yml") rescue nil || {}
-  end
-
-  def init_config
-    puts @config
-    puts; puts
-    puts @config['config']['amqp_server']
-  end
-
   def random_int(min, max)
     rand(max - min) + min
   end
@@ -45,7 +35,7 @@ class TimeSim
     min_date_seconds = min_date.to_time.to_i
     max_date_seconds = max_date.to_time.to_i
     random_date_seconds = random_int(min_date_seconds,max_date_seconds)
-    Time.at(random_date_seconds).to_datetime
+    Time.at(random_date_seconds).to_time
   end
 
   def get_random_time(day_interval)
