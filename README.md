@@ -70,6 +70,8 @@ sleep for 3 seconds instead of 10 seconds you would issue this command
 ruby sim.rb -v -n 6 -i 4 -s 3
 ```
 
+#### Forever
+
 The simulator also gives you the ability to run forever.  If you decide you want to publish for
 eternity then simply pass in the forever flag.
 
