@@ -17,8 +17,10 @@ class Sim
     options.d = 10
     options.e = "test.spnee.generic"
     options.i = 1
+    options.m = "useragent"
     options.n = 2
     options.s = 10
+    options.t = "visit"
 
     opt_parser = OptionParser.new do |opts|
       opts.banner = "Usage: sim.rb [options]"
@@ -33,26 +35,37 @@ class Sim
         options.verbose = v
       end
 
-      opts.on("-d Days", Integer, "Time simulation interval") do |x|
-        options.d = x
+      # String Options
+
+      opts.on("-t Type", "String Type name") do |t|
+        options.t = t
       end
 
-      opts.on("-e Exchange", "Exchange name") do |c|
+      opts.on("-m Dimension", "String Dimension name") do |m|
+        options.m = m
+      end
+
+      opts.on("-e Exchange", "String Exchange name") do |c|
         options.e = c
       end
 
-      opts.on("-i Iterations", Integer, "Publish i iterations") do |x|
+      # Integer Options
+
+      opts.on("-d Days", Integer, "Integer Time simulation interval") do |x|
+        options.d = x
+      end
+
+      opts.on("-i Iterations", Integer, "Integer Publish i iterations") do |x|
         options.i = x
       end
 
-      opts.on("-n Messages", Integer, "Publish n messages") do |x|
+      opts.on("-n Messages", Integer, "Integer Publish n messages") do |x|
         options.n = x
       end
 
-      opts.on("-s Seconds", Integer, "Sleep s seconds") do |x|
+      opts.on("-s Seconds", Integer, "Integer Sleep s seconds") do |x|
         options.s = x
       end
-
 
       # No argument, shows at tail.  This will print an options summary.
       # Try it and see!
