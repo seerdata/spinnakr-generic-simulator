@@ -120,15 +120,20 @@ class Msgvisit
   end
 end
 
+=begin
 require_relative './options'
 myoptions = Options.new
 options = myoptions.parse(ARGV)
 msg = Msgvisit.new(options)
 puts msg.buildmsg
+=end
 
 =begin
-msg = Msgeneric.new
-n = 20
+require_relative './options'
+myoptions = Options.new
+options = myoptions.parse(ARGV)
+msg = Msgvisit.new(options)
+n = 5
 msgs = msg.build_n_messages(n)
 for i in 0..n
   puts msgs[i]
