@@ -1,4 +1,4 @@
-require_relative './msgeneric'
+
 require_relative './msgjob'
 require_relative './msgvisit'
 require 'json'
@@ -65,10 +65,14 @@ class Publisher
 
   def get_message_type(options)
     if options.a == 'visit'
-      puts 'Inside Msgvisit'
+      if options.verbose
+        puts 'Inside Msgvisit'
+      end
       Msgvisit.new(options)
     elsif options.a == 'job'
-      puts 'Inside Msgjob'
+      if options.verbose
+        puts 'Inside Msgjob'
+      end
       Msgjob.new(options)
     else
       print 'publisher.rb ', options.a, ' is not a supported message dimension'
