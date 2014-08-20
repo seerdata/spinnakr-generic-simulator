@@ -14,7 +14,7 @@ class Publisher
   end
 
   def publish_once(options,exchange)
-    msg = Msgeneric.new
+    msg = get_message_type(options)
     n = options.n
     msgs = msg.build_n_messages(options,n)
     for i in 1..n
@@ -29,7 +29,7 @@ class Publisher
     seconds = options.s
     iterations = options.i
     for i in 1..iterations
-      msg = Msgeneric.new
+      msg = get_message_type(options)
       n = options.n
       msgs = msg.build_n_messages(options,n)
       for i in 1..n
@@ -47,7 +47,7 @@ class Publisher
       seconds = options.s
       iterations = options.i
       for i in 1..iterations
-        msg = Msgeneric.new
+        msg = get_message_type(options)
         n = options.n
         msgs = msg.build_n_messages(options,n)
         for i in 1..n
@@ -61,4 +61,7 @@ class Publisher
     end
   end
 
+  def get_message_type(options)
+    Msgeneric.new
+  end
 end
