@@ -1,15 +1,9 @@
-require 'bunny'
+require 'optparse'
+require 'ostruct'
+require 'pp'
 
-#require 'optparse'
-#require 'ostruct'
-#require 'pp'
+class Options
 
-require_relative './options'
-require_relative './publisher'
-
-class Sim
-
-=begin
   def parse(args)
 
     options = OpenStruct.new
@@ -81,36 +75,4 @@ class Sim
     opt_parser.parse!(args)
     options
   end
-=end
-
-=begin
-  def initialize
-    @myoptions = MyOptions.new
-    puts @myoptions
-    puts 'got called'
-  end
-=end
-  def run(options)
-    connection = Bunny.new
-    connection.start
-
-    channel = connection.create_channel
-    exchange_name = options.e
-    exchange = channel.fanout(exchange_name, :passive => true)
-
-    pub = Publisher.new
-    pub.publish(options,exchange)
-
-    sleep 3.5
-    connection.close
-  end
-
 end
-
-mysim = Sim.new
-myoptions = Options.new
-options = myoptions.parse(ARGV)
-if options.verbose == true
-  puts options
-end
-mysim.run(options)
