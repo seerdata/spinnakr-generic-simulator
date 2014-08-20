@@ -1,4 +1,5 @@
-require_relative './msgeneric'
+#require_relative './msgeneric'
+require_relative './msgvisit'
 require 'json'
 
 class Publisher
@@ -16,7 +17,7 @@ class Publisher
   def publish_once(options,exchange)
     msg = get_message_type(options)
     n = options.n
-    msgs = msg.build_n_messages(options,n)
+    msgs = msg.build_n_messages(n)
     for i in 1..n
       exchange.publish(msgs[i].to_json)
     end
@@ -31,7 +32,7 @@ class Publisher
     for i in 1..iterations
       msg = get_message_type(options)
       n = options.n
-      msgs = msg.build_n_messages(options,n)
+      msgs = msg.build_n_messages(n)
       for i in 1..n
         exchange.publish(msgs[i].to_json)
       end
@@ -49,7 +50,7 @@ class Publisher
       for i in 1..iterations
         msg = get_message_type(options)
         n = options.n
-        msgs = msg.build_n_messages(options,n)
+        msgs = msg.build_n_messages(n)
         for i in 1..n
           exchange.publish(msgs[i].to_json)
         end
@@ -62,6 +63,6 @@ class Publisher
   end
 
   def get_message_type(options)
-    Msgeneric.new
+    Msgvisit.new(options)
   end
 end

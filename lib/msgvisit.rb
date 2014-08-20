@@ -161,6 +161,7 @@ class Msgvisit
   end
 end
 
+=begin
 require 'ostruct'
 options = OpenStruct.new
 options.d = 10
@@ -168,6 +169,8 @@ options.t = 'visit'
 options.m = 'useragent'
 msg = Msgvisit.new(options)
 puts msg.buildmsg
+=end
+
 
 =begin
 msg = Msgeneric.new
