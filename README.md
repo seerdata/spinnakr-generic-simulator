@@ -107,7 +107,7 @@ If you want a different dimension string then you can issue these commands
 
 ```
 ruby sim.rb -m visit-uuid
-ruby sim.rb -m job
+ruby sim.rb -m job-skills
 ```
 
 #### Extra examples
