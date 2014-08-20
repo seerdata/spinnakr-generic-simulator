@@ -71,8 +71,9 @@ class Publisher
       puts 'Inside Msgjob'
       Msgjob.new(options)
     else
-      puts 'Inside Msgeneric'
-      Msgeneric.new(options)
+      print 'publisher.rb ', options.a, ' is not a supported message dimension'
+      puts
+      exit
     end
   end
 end
