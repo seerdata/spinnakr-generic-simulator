@@ -1,6 +1,6 @@
 require 'securerandom'
 
-class Msgvisit
+class Msgvisitold
 
   def get_my_random_visit_uuid
     my_visit_uuid = []

@@ -1,7 +1,7 @@
 require 'securerandom'
 require_relative './timesim'
 
-class Msgeneric
+class Msgjob
 
   def initialize(options)
     @timesim = TimeSim.new

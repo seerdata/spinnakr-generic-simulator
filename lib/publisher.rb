@@ -1,4 +1,5 @@
-#require_relative './msgeneric'
+require_relative './msgeneric'
+require_relative './msgjob'
 require_relative './msgvisit'
 require 'json'
 
@@ -63,6 +64,15 @@ class Publisher
   end
 
   def get_message_type(options)
-    Msgvisit.new(options)
+    if options.a == 'visit'
+      puts 'Inside Msgvisit'
+      Msgvisit.new(options)
+    elsif options.a == 'job'
+      puts 'Inside Msgjob'
+      Msgjob.new(options)
+    else
+      puts 'Inside Msgeneric'
+      Msgeneric.new(options)
+    end
   end
 end
