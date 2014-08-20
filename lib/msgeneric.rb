@@ -8,56 +8,48 @@ class Msgeneric
     @options = options
   end
 
-  def get_type
-    @options.t
-  end
-
   def get_dimension
     @options.m
   end
 
-  def get_old_dimension
-    dimension = [
-      'skills','visit','visitor'
-    ].sample
+  def get_method
+    @options.b
   end
 
-  def get_key(dimension)
-    if dimension == 'uuid'
+  def get_key(method)
+    if method == 'uuid'
       get_my_visit_uuid
-    elsif dimension == 'useragent'
+    elsif method == 'useragent'
       ['mozilla','chrome','safari'].sample
     else
       'none'
     end
   end
 
-  def get_value(dimension)
-    if dimension == 'visit'
-      get_my_visit_uuid
-    elsif dimension == 'visitor'
-      get_my_visitor_uuid
+  def get_value(method)
+    if method == 'uuid'
+      1
+    elsif method == 'useragent'
+      (1..10).to_a.sample
     else
       (10..20).to_a.sample
     end
   end
 
-  def get_interval
-    dimension = @options.m
-    if dimension == 'uuid'
+  def get_interval(method)
+    if method == 'uuid'
       interval = ['hours','days']
-    elsif dimension == 'useragent'
+    elsif method == 'useragent'
       interval = ['weeks']
     else
-      interval = ['years']
+      interval = ['hours','days','weeks']
     end
   end
 
-  def get_calculation
-    dimension = @options.m
-    if dimension == 'uuid'
+  def get_calculation(method)
+    if method == 'uuid'
       calculation = ['sum','average']
-    elsif dimension == 'useragent'
+    elsif method == 'useragent'
       calculation = ['sum','average','percentage']
     else
       calculation = ['regression']
@@ -72,16 +64,6 @@ class Msgeneric
     #puts my_visit_uuid.sort
     #puts
     my_visit_uuid
-  end
-
-  def get_my_random_visitor_uuid
-    my_visitor_uuid = []
-    for i in 0..10
-      my_visitor_uuid.push(SecureRandom.uuid)
-    end
-    #puts my_visitor_uuid.sort
-    #puts
-    my_visitor_uuid
   end
 
   def get_my_visit_uuid
@@ -99,31 +81,8 @@ class Msgeneric
     ].sample
   end
 
-  def get_my_visitor_uuid
-    my_visitor_uuid = [
-      '1b306a68-6dbc-412f-b2ba-961991b452d1',
-      '27547636-c352-4980-b5ec-c13f0a309957',
-      '33731ba9-7ebe-484d-ba9e-b2287fd26c96',
-      '45757ff8-ef32-4c6a-be9f-bb5f5af6e0ef',
-      '85fe4bfc-28a4-4c30-8828-aab17ea05097',
-      'ac70f0d8-cd7f-4e45-8652-457dbc33ecb9',
-      'b0671539-d7e1-4059-830a-f0100663095a',
-      'b9474e92-660d-4348-a6e2-b135f381eb27',
-      'b9930161-a397-4276-8429-54758a9c2a50',
-      'c6ea6642-f735-4b71-8236-b16d3ff7ab00',
-    ].sample
-  end
-
-  def get_user_id
-    (100..105).to_a.sample
-  end
-
   def get_account_id
     (1..5).to_a.sample
-  end
-
-  def get_trackable_id
-    (300..305).to_a.sample
   end
 
   def get_project_id
@@ -134,11 +93,11 @@ class Msgeneric
     msg_hash = Hash.new
     msg_hash[:account_id] = get_account_id
     msg_hash[:project_id] = get_project_id
-    msg_hash[:type] = get_type
     dimension = get_dimension
+    method = get_method
     msg_hash[:dimension] = dimension
-    msg_hash[:key] = get_key(dimension)
-    msg_hash[:value] = 1
+    msg_hash[:key] = get_key(method)
+    msg_hash[:value] = get_value(method)
 
     # Publish out a random time on either side of day interval
     msg_hash[:created_at] = @timesim.get_random_time(@options.d)
@@ -146,8 +105,8 @@ class Msgeneric
     # Publish out the time now
     # msg_hash[:created_at] = Time.now
 
-    msg_hash[:interval] = get_interval
-    msg_hash[:calculation] = get_calculation
+    msg_hash[:interval] = get_interval(method)
+    msg_hash[:calculation] = get_calculation(method)
     msg_hash
   end
 
@@ -162,19 +121,19 @@ class Msgeneric
 end
 
 =begin
-require 'ostruct'
-options = OpenStruct.new
-options.d = 10
-options.t = 'visit'
-options.m = 'useragent'
+require_relative './options'
+myoptions = Options.new
+options = myoptions.parse(ARGV)
 msg = Msgvisit.new(options)
 puts msg.buildmsg
 =end
 
-
 =begin
-msg = Msgeneric.new
-n = 20
+require_relative './options'
+myoptions = Options.new
+options = myoptions.parse(ARGV)
+msg = Msgvisit.new(options)
+n = 5
 msgs = msg.build_n_messages(n)
 for i in 0..n
   puts msgs[i]
