@@ -1,29 +1,32 @@
 require 'securerandom'
 require_relative './timesim'
 
-class Msgeneric
+class Msgvisit
 
-  def initialize
-    #@visit_uuid = get_my_random_visit_uuid
-    #@visit_uuid = get_my_visit_uuid
-    #@visitor_uuid = get_my_random_visitor_uuid
-    #@visitor_uuid = get_my_visitor_uuid
+  def initialize(options)
     @timesim = TimeSim.new
+    @options = options
+  end
+
+  def get_type
+    @options.t
   end
 
   def get_dimension
+    @options.m
+  end
+
+  def get_old_dimension
     dimension = [
       'skills','visit','visitor'
     ].sample
   end
 
   def get_key(dimension)
-    if dimension == 'skills'
-      'iOS'
-    elsif dimension == 'visit'
-      'uuid'
-    elsif dimension == 'visitor'
-      'uuid'
+    if dimension == 'uuid'
+      get_my_visit_uuid
+    elsif dimension == 'useragent'
+      ['mozilla','chrome','safari'].sample
     else
       'none'
     end
@@ -39,18 +42,26 @@ class Msgeneric
     end
   end
 
-  def get_periodicity
-    my_periodicity = [
-      ['weekly','monthly'],
-      ['weekly'],
-      ['monthly']
-    ].sample
+  def get_interval
+    dimension = @options.m
+    if dimension == 'uuid'
+      interval = ['hours','days']
+    elsif dimension == 'useragent'
+      interval = ['weeks']
+    else
+      interval = ['years']
+    end
   end
 
   def get_calculation
-    my_periodicity = [
-      ['regression']
-    ].sample
+    dimension = @options.m
+    if dimension == 'uuid'
+      calculation = ['sum','average']
+    elsif dimension == 'useragent'
+      calculation = ['sum','average','percentage']
+    else
+      calculation = ['regression']
+    end
   end
 
   def get_my_random_visit_uuid
@@ -119,42 +130,44 @@ class Msgeneric
     (6..10).to_a.sample
   end
 
-  def buildmsg(options)
+  def buildmsg
     msg_hash = Hash.new
     msg_hash[:account_id] = get_account_id
     msg_hash[:project_id] = get_project_id
-    msg_hash[:dimension] = get_dimension
-    msg_hash[:key] = get_key(msg_hash[:dimension])
-    msg_hash[:value] = get_value(msg_hash[:dimension])
+    msg_hash[:type] = get_type
+    dimension = get_dimension
+    msg_hash[:dimension] = dimension
+    msg_hash[:key] = get_key(dimension)
+    msg_hash[:value] = 1
 
     # Publish out a random time on either side of day interval
-    msg_hash[:created_at] = @timesim.get_random_time(options.d)
+    msg_hash[:created_at] = @timesim.get_random_time(@options.d)
 
     # Publish out the time now
     # msg_hash[:created_at] = Time.now
 
-    msg_hash[:periodicty] = get_periodicity
+    msg_hash[:interval] = get_interval
     msg_hash[:calculation] = get_calculation
     msg_hash
   end
 
-  def build_n_messages(options,n)
+  def build_n_messages(n)
     messages = []
     for i in 0..n
-      mymsg = buildmsg(options)
+      mymsg = buildmsg
       messages.push(mymsg)
     end
     messages
   end
 end
 
-=begin
 require 'ostruct'
 options = OpenStruct.new
 options.d = 10
-msg = Msgeneric.new
-puts msg.buildmsg(options)
-=end
+options.t = 'visit'
+options.m = 'useragent'
+msg = Msgvisit.new(options)
+puts msg.buildmsg
 
 =begin
 msg = Msgeneric.new
