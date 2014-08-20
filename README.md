@@ -93,6 +93,23 @@ If you want to simulate 20 days forward and 20 days back then pass in the **d** 
 r sim.rb -d 20
 ```
 
+#### Dimension String
+
+By default the dimension string is ** visit-useragent **.
+
+You can see that by issuing this command and looking at the verbose output
+
+```
+ruby sim.rb -v
+```
+
+If you want a different dimension string then you can issue these commands
+
+```
+ruby sim.rb -m visit-uuid
+ruby sim.rb -m job
+```
+
 #### Extra examples
 
 This will publish 20 messages once and only once to an alternate exchange.
