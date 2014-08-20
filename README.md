@@ -84,7 +84,7 @@ r sim.rb -v -n 6 -i 4 -s 3 -f
 Each event has a timestamp associated with it.  To simulate a period of time over n days you pass
 in a flag which tells the simulator what day range you want to simulate.
 
-The default day interval is ** 10 days **.  Meaning the time stamps will have a min time
+The default day interval is **10 days**.  Meaning the time stamps will have a min time
 of 10 days ago and a max time of 10 days from now.
 
 If you want to simulate 20 days forward and 20 days back then pass in the **d** flag.
@@ -95,7 +95,7 @@ r sim.rb -d 20
 
 #### Dimension String
 
-By default the dimension string is ** visit-useragent **.
+By default the dimension string is **visit-useragent**.
 
 You can see that by issuing this command and looking at the verbose output
 
