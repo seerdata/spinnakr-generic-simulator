@@ -89,10 +89,15 @@ class Msgvisit
     (1..3).to_a.sample
   end
 
+  def get_dbnumber
+    @options.t + 99
+  end
+
   def buildmsg
     msg_hash = Hash.new
     msg_hash[:account_id] = get_account_id
     msg_hash[:project_id] = get_project_id
+    msg_hash[:dbnumber] = get_dbnumber
     dimension = get_dimension
     method = get_method
     msg_hash[:dimension] = dimension
