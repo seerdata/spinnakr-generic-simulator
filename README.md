@@ -38,6 +38,24 @@ To define an alternate exchange name to publish to
 ruby sim.rb -e 'test.spnee.generictwo'
 ```
 
+#### Account Id Number
+
+The simulator always passes in the same account id number.
+
+The default account id number is 1.
+
+To change the account id number to 2
+
+```
+ruby sim.rb -t 2
+```
+
+To change the account id number to 3
+
+```
+ruby sim.rb -t 3
+```
+
 #### Messages
 
 The default number of messages that get published out is 2

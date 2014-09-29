@@ -82,11 +82,11 @@ class Msgvisit
   end
 
   def get_account_id
-    (1..5).to_a.sample
+    @options.t
   end
 
   def get_project_id
-    (6..10).to_a.sample
+    (1..3).to_a.sample
   end
 
   def buildmsg

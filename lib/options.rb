@@ -14,14 +14,15 @@ class Options
     options.forever = false
     options.verbose = false
 
+    options.a = "visit"
+    options.b = "useragent"
     options.d = 10
     options.e = "test.spnee.generic"
     options.i = 1
     options.m = "visit-useragent"
     options.n = 2
     options.s = 10
-    options.a = "visit"
-    options.b = "useragent"
+    options.t = 1
 
     opt_parser = OptionParser.new do |opts|
       opts.banner = "Usage: sim.rb [options]"
@@ -67,6 +68,10 @@ class Options
 
       opts.on("-s Seconds", Integer, "Integer Sleep s seconds") do |x|
         options.s = x
+      end
+
+      opts.on("-t Account", Integer, "Integer Account id number") do |x|
+        options.t = x
       end
 
       # No argument, shows at tail.  This will print an options summary.
