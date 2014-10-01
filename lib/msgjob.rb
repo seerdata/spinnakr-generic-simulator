@@ -20,11 +20,11 @@ class Msgjob
   end
 
   def get_interval
-    ['weeks','months']
+    ['hours','weeks','months']
   end
 
   def get_calculation
-    ['sum','average']
+    ['count','sum','average','standard_deviation','linear_regression']
   end
 
   def get_account_id
