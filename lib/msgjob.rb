@@ -16,7 +16,7 @@ class Msgjob
   end
 
   def get_value
-    (1..10).to_a.sample
+    ['1.01','2.02','3.03','4.04','5.05','6.06','7.07','8.08','9.09','10.10'].sample
   end
 
   def get_interval
@@ -28,15 +28,17 @@ class Msgjob
   end
 
   def get_account_id
-    @options.t
+    account_id = @options.t
+    account_id.to_s
   end
 
   def get_project_id
-    (1..3).to_a.sample
+    ['1','2','3'].sample
   end
 
   def get_dbnumber
-    @options.t + 99
+    dbnumber = @options.t + 99
+    dbnumber.to_s
   end
 
   def buildmsg
